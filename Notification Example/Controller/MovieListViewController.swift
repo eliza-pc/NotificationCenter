@@ -50,5 +50,6 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
 
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         tableView.selectRow(at: nil, animated: false, scrollPosition: .none)
+        performSegue(withIdentifier: "EditMovie", sender: nil)
     }
 }

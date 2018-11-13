@@ -48,20 +48,20 @@ class MovieTableViewCell: UITableViewCell {
             portugueseTitleLabel.isHidden = true
         }
 
-        otherDataLabel.text = "\(movie.genre.name) (\(movie.year))"
+        if let genre = movie.genre {
+            otherDataLabel.text = "\(genre.name)"
+        } else {
+            otherDataLabel.text = "[Sem gênero]"
+        }
+        if let year = movie.year {
+            otherDataLabel.text = otherDataLabel.text! + " (\(year))"
+        }
         if let duration = movie.duration {
             var components = DateComponents()
             components.second = duration
-            otherDataLabel.text = otherDataLabel!.text! + " – " + MovieTableViewCell.durationFormatter.string(from: components)!
+            otherDataLabel.text = otherDataLabel.text! + " – " + MovieTableViewCell.durationFormatter.string(from: components)!
         }
 
-        movie.fetchImage { (movie: Movie, image: UIImage) in
-            guard movie === self.movie else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.imdbImageView.image = image
-            }
-        }
+        imdbImageView.image = Movie.placeholderImage
     }
 }

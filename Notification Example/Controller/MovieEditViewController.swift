@@ -39,6 +39,18 @@ class MovieEditViewController: UIViewController {
     // MARK: - Actions
 
     @IBAction func saveButtonClicked(_ sender: UIBarButtonItem) {
+        if let movie = movie {
+            movie.title = titleText.text ?? ""
+            movie.portugueseTitle = portugueseTitleText.text
+            movie.duration = Int(durationText.text ?? "")
+            movie.year = Int(yearText.text ?? "")
+
+            allMovies.update(movie)
+        } else {
+            let movie = Movie(title: titleText.text ?? "", portugueseTitle: portugueseTitleText.text, duration: Int(durationText.text ?? ""), year: Int(yearText.text ?? ""))
+
+            allMovies.add(movie)
+        }
 
         navigationController?.popViewController(animated: true)
     }

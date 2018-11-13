@@ -20,15 +20,15 @@ class MovieStatisticsViewController: UIViewController, UITableViewDataSource, UI
     // MARK: - UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Movie.Genre.count
+        return Movie.Genre.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieStatistics", for: indexPath)
-        let genre = Movie.Genre(rawValue: indexPath.row)!
+        let genre = Movie.Genre(rawValue: indexPath.row)
         let genreCount = allMovies.count(ofGenre: genre)
 
-        cell.textLabel?.text = genre.name
+        cell.textLabel?.text = genre?.name ?? "(Sem gênero)"
         cell.detailTextLabel?.text = "\(genreCount)"
 
         return cell

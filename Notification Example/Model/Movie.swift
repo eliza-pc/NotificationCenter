@@ -46,11 +46,11 @@ class Movie {
 
     var title: String
     var portugueseTitle: String?
-    var genre: Genre
+    var genre: Genre?
     var duration: Int?
-    var year: Int
+    var year: Int?
     var isFavorite: Bool
-    var imdbHash: String?
+    var imdbImageHash: String?
 
     static let placeholderImage: UIImage = {
         return UIImage(named: "PlaceholderMovie")!
@@ -60,62 +60,30 @@ class Movie {
     }()
     private var image: UIImage? = nil
 
-    init(title: String, portugueseTitle: String? = nil, genre: Genre, duration: Int? = nil, year: Int, isFavorite: Bool = false, imdbHash: String? = nil) {
+    init(title: String, portugueseTitle: String? = nil, genre: Genre? = nil, duration: Int? = nil, year: Int? = nil, isFavorite: Bool = false, imdbImageHash: String? = nil) {
         self.title = title
         self.portugueseTitle = portugueseTitle
         self.genre = genre
         self.duration = duration
         self.year = year
         self.isFavorite = isFavorite
-        self.imdbHash = imdbHash
+        self.imdbImageHash = imdbImageHash
     }
 
     func getUrl(forSize unscaledSize: CGSize) -> URL? {
-        guard let imdbHash = imdbHash, let hashInitial = imdbHash.first else {
+        guard let imdbImageHash = imdbImageHash, let hashInitial = imdbImageHash.first else {
             return nil
         }
 
         let size = CGSize(width: unscaledSize.width * UIScreen.main.scale, height: unscaledSize.height * UIScreen.main.scale)
 
-        return URL(string: "https://m.media-amazon.com/images/\(hashInitial)/\(imdbHash)@@._V1_UX\(size.width)_CR0,0,\(size.width),\(size.height)_AL_.jpg")
-    }
-
-    func fetchImage(withSize unscaledSize: CGSize, completionHandler: ((Movie, UIImage) -> Void)?) {
-        if let image = self.image {
-            completionHandler?(self, image)
-            return
-        }
-
-        guard let url = getUrl(forSize: unscaledSize) else {
-            self.image = Movie.placeholderImage
-            completionHandler?(self, self.image!)
-            return
-        }
-
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-
-        let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            guard let data = data, error == nil else {
-                self.image = Movie.placeholderImage
-                completionHandler?(self, self.image!)
-                return
-            }
-
-            self.image = UIImage(data: data, scale: UIScreen.main.scale)
-            completionHandler?(self, self.image!)
-        }
-
-        task.resume()
-    }
-
-    func fetchImage(completionHandler: ((Movie, UIImage) -> Void)?) {
-        fetchImage(withSize: Movie.defaultSize, completionHandler: completionHandler)
+        return URL(string: "https://m.media-amazon.com/images/\(hashInitial)/\(imdbImageHash)@@._V1_UX\(size.width)_CR0,0,\(size.width),\(size.height)_AL_.jpg")
     }
 }
 
 
 var allMovies: [Movie] = [
-    Movie(title: "A Dangerous Method", portugueseTitle: "Um Método Perigoso", genre: .biography, duration: 5940, year: 2011),
+    Movie(title: "A Dangerous Method", portugueseTitle: "Um Método Perigoso", genre: .biography, duration: 5940, year: 2011, imdbImageHash: "MV5BNGZkODlhMjktNzhhMC00YjFiLWJmODMtNjQwOGMzZjMxNTZiXkEyXkFqcGdeQXVyMTMxODk2OTU"),
     Movie(title: "Over Her Dead Body", portugueseTitle: "Nem por Cima do Meu Cadáver", genre: .comedy, duration: 5700, year: 2008),
     Movie(title: "Across the Universe", genre: .drama, duration: 7980, year: 2007, isFavorite: true),
     Movie(title: "I Love You Phillip Morris", portugueseTitle: "O Golpista do Ano", genre: .biography, duration: 6120, year: 2009),
@@ -153,7 +121,7 @@ var allMovies: [Movie] = [
     Movie(title: "She's Out of My League", portugueseTitle: "Ela é Demais Pra Mim", genre: .comedy, year: 2010),
     Movie(title: "Going the Distance", portugueseTitle: "Amor à Distância", genre: .comedy, year: 2010),
     Movie(title: "Penelope", genre: .comedy, duration: 6240, year: 2006),
-    Movie(title: "(500) Days of Summer", portugueseTitle: "(500) Dias com Ela", genre: .comedy, duration: 5700, year: 2009),
+    Movie(title: "(500) Days of Summer", portugueseTitle: "(500) Dias com Ela", genre: .comedy, duration: 5700, year: 2009, imdbImageHash: "MV5BMTk5MjM4OTU1OV5BMl5BanBnXkFtZTcwODkzNDIzMw"),
     Movie(title: "Love Happens", portugueseTitle: "O Amor Acontece", genre: .drama, year: 2009),
     Movie(title: "No Reservations", portugueseTitle: "Sem Reservas", genre: .comedy, duration: 6240, year: 2007),
     Movie(title: "Leap Year", portugueseTitle: "Casa Comigo?", genre: .comedy, year: 2010),
@@ -167,7 +135,7 @@ var allMovies: [Movie] = [
     Movie(title: "Gnomeo and Juliet", genre: .animation, year: 2011),
     Movie(title: "Dear John", portugueseTitle: "Querido John", genre: .drama, duration: 6480, year: 2010),
     Movie(title: "Love & Other Drugs", portugueseTitle: "Amor e Outras Drogas", genre: .comedy, duration: 6720, year: 2010),
-    Movie(title: "Wall-E", portugueseTitle: "WALL·E", genre: .animation, duration: 5880, year: 2008, isFavorite: true, imdbHash: "MV5BMjExMTg5OTU0NF5BMl5BanBnXkFtZTcwMjMxMzMzMw"),
+    Movie(title: "Wall-E", portugueseTitle: "WALL·E", genre: .animation, duration: 5880, year: 2008, isFavorite: true, imdbImageHash: "MV5BMjExMTg5OTU0NF5BMl5BanBnXkFtZTcwMjMxMzMzMw"),
     Movie(title: "Jane Eyre", genre: .drama, duration: 7200, year: 2011),
     Movie(title: "The Twilight Saga: New Moon", portugueseTitle: "A Saga Crepúsculo: Lua Nova", genre: .adventure, duration: 7800, year: 2009),
     Movie(title: "Our Family Wedding", portugueseTitle: "Nossa União, Muita Confusão", genre: .comedy, year: 2010),
