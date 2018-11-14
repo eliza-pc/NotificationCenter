@@ -44,6 +44,14 @@ class Movie {
         }
     }
 
+    static let placeholderImage: UIImage = {
+        return UIImage(named: "PlaceholderMovie")!
+    }()
+    static let defaultSize: CGSize = {
+        return Movie.placeholderImage.size
+    }()
+    private static let imageDownloadSession = URLSession(configuration: URLSessionConfiguration.default)
+
     var title: String
     var portugueseTitle: String?
     var genre: Genre?
@@ -52,13 +60,16 @@ class Movie {
     var isFavorite: Bool
     var imdbImageHash: String?
 
-    static let placeholderImage: UIImage = {
-        return UIImage(named: "PlaceholderMovie")!
-    }()
-    static let defaultSize: CGSize = {
-        return Movie.placeholderImage.size
-    }()
-    private var image: UIImage? = nil
+    private var cachedImage: UIImage? = nil
+    var image: UIImage {
+        if let cachedImage = cachedImage {
+            return cachedImage
+        }
+
+        cachedImage = Movie.placeholderImage
+        fetchImage()
+        return cachedImage!
+    }
 
     init(title: String, portugueseTitle: String? = nil, genre: Genre? = nil, duration: Int? = nil, year: Int? = nil, isFavorite: Bool = false, imdbImageHash: String? = nil) {
         self.title = title
@@ -78,6 +89,21 @@ class Movie {
         let size = CGSize(width: unscaledSize.width * UIScreen.main.scale, height: unscaledSize.height * UIScreen.main.scale)
 
         return URL(string: "https://m.media-amazon.com/images/\(hashInitial)/\(imdbImageHash)@@._V1_UX\(size.width)_CR0,0,\(size.width),\(size.height)_AL_.jpg")
+    }
+
+    private func fetchImage() {
+        guard let url = getUrl(forSize: Movie.defaultSize) else {
+            return
+        }
+
+        let task = Movie.imageDownloadSession.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            guard let data = data, error == nil else {
+                return
+            }
+            self.cachedImage = UIImage(data: data, scale: UIScreen.main.scale)
+        }
+
+        task.resume()
     }
 }
 

@@ -62,6 +62,6 @@ class MovieTableViewCell: UITableViewCell {
             otherDataLabel.text = otherDataLabel.text! + " – " + MovieTableViewCell.durationFormatter.string(from: components)!
         }
 
-        imdbImageView.image = Movie.placeholderImage
+        imdbImageView.image = movie.image
     }
 }
