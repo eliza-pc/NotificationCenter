@@ -109,9 +109,9 @@ class Movie {
 
 
 var allMovies: [Movie] = [
-    Movie(title: "A Dangerous Method", portugueseTitle: "Um Método Perigoso", genre: .biography, duration: 5940, year: 2011, imdbImageHash: "MV5BNGZkODlhMjktNzhhMC00YjFiLWJmODMtNjQwOGMzZjMxNTZiXkEyXkFqcGdeQXVyMTMxODk2OTU"),
+    Movie(title: "A Dangerous Method", portugueseTitle: "Um Método Perigoso", genre: .biography, duration: 5940, year: 2011, imdbImageHash: "MV5BMTU5Mjk3NjgxMl5BMl5BanBnXkFtZTcwMDM5MjA5Ng"),
     Movie(title: "Over Her Dead Body", portugueseTitle: "Nem por Cima do Meu Cadáver", genre: .comedy, duration: 5700, year: 2008),
-    Movie(title: "Across the Universe", genre: .drama, duration: 7980, year: 2007, isFavorite: true),
+    Movie(title: "Across the Universe", genre: .drama, duration: 7980, year: 2007, isFavorite: true, imdbImageHash: "MV5BMTIyMTUwNzg3Nl5BMl5BanBnXkFtZTcwMjM1MDI1MQ"),
     Movie(title: "I Love You Phillip Morris", portugueseTitle: "O Golpista do Ano", genre: .biography, duration: 6120, year: 2009),
     Movie(title: "Remember Me", portugueseTitle: "Viva - A Vida é uma Festa", genre: .animation, year: 2017),
     Movie(title: "Valentine's Day", portugueseTitle: "Idas e Vindas do Amor", genre: .comedy, duration: 7500, year: 2010),
@@ -165,7 +165,7 @@ var allMovies: [Movie] = [
     Movie(title: "Jane Eyre", genre: .drama, duration: 7200, year: 2011),
     Movie(title: "The Twilight Saga: New Moon", portugueseTitle: "A Saga Crepúsculo: Lua Nova", genre: .adventure, duration: 7800, year: 2009),
     Movie(title: "Our Family Wedding", portugueseTitle: "Nossa União, Muita Confusão", genre: .comedy, year: 2010),
-    Movie(title: "27 Dresses", portugueseTitle: "Vestida para Casar", genre: .comedy, duration: 6660, year: 2008),
+    Movie(title: "27 Dresses", portugueseTitle: "Vestida para Casar", genre: .comedy, duration: 6660, year: 2008, imdbImageHash: "MV5BMzI5OTM0OTg2MF5BMl5BanBnXkFtZTcwNjAyMTU1MQ"),
     Movie(title: "Midnight in Paris", portugueseTitle: "Meia-Noite em Paris", genre: .comedy, year: 2011),
     Movie(title: "Ghosts of Girlfriends Past", portugueseTitle: "Minhas Adoráveis Ex-Namoradas", genre: .comedy, year: 2009),
     Movie(title: "Killers", portugueseTitle: "Par Perfeito", genre: .action, duration: 6000, year: 2010),
