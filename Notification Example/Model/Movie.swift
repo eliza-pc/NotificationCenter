@@ -62,12 +62,11 @@ class Movie {
 
     private var cachedImage: UIImage? = nil
     var image: UIImage {
-        if let cachedImage = cachedImage {
-            return cachedImage
+        if cachedImage == nil {
+            cachedImage = Movie.placeholderImage
+            fetchImage()
         }
 
-        cachedImage = Movie.placeholderImage
-        fetchImage()
         return cachedImage!
     }
 
