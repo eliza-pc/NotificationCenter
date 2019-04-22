@@ -2,8 +2,8 @@
 //  MovieListViewController.swift
 //  Notification Example
 //
-//  Created by Vilar da Camara Neto on 13/11/18.
-//  Copyright © 2018 Vilar da Camara Neto. All rights reserved.
+//  Created by Eliza Carvalho on 13/11/18.
+//  Copyright © 2018 Eliza Carvalho. All rights reserved.
 //
 
 import UIKit
@@ -14,6 +14,7 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        NotificationCenter.default.addObserver(self, selector: #selector(MovieListViewController.moviesChangedNotificationReceived(_:)), name: Movie.moviesChangedNotification, object: nil)
     }
 
     // MARK: - Navigation
@@ -51,5 +52,13 @@ class MovieListViewController: UIViewController, UITableViewDataSource, UITableV
     @IBAction func addButtonClicked(_ sender: UIBarButtonItem) {
         tableView.selectRow(at: nil, animated: false, scrollPosition: .none)
         performSegue(withIdentifier: "EditMovie", sender: nil)
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func moviesChangedNotificationReceived(_ notification: Notification){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

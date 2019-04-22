@@ -2,8 +2,8 @@
 //  MovieTableViewCell.swift
 //  Notification Example
 //
-//  Created by Vilar da Camara Neto on 13/11/18.
-//  Copyright © 2018 Vilar da Camara Neto. All rights reserved.
+//  Created by Eliza Carvalho on 13/11/18.
+//  Copyright © 2018 Eliza Carvalho. All rights reserved.
 //
 
 import UIKit
@@ -19,6 +19,7 @@ class MovieTableViewCell: UITableViewCell {
         return formatter
     }()
 
+    //test
     private var movie: Movie? = nil
 
     @IBOutlet weak var imdbImageView: UIImageView!
@@ -38,7 +39,10 @@ class MovieTableViewCell: UITableViewCell {
     }
 
     func fill(_ movie: Movie) {
+        NotificationCenter.default.removeObserver(self)
         self.movie = movie
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(MovieTableViewCell.imageDownloadedNotificationReceived(_:)), name: Movie.imageDownloadedNotificationName, object: movie)
 
         titleLabel.text = movie.title
         if let portugueseTitle = movie.portugueseTitle {
@@ -63,5 +67,13 @@ class MovieTableViewCell: UITableViewCell {
         }
 
         imdbImageView.image = movie.image
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func imageDownloadedNotificationReceived(_ notification: Notification){
+        DispatchQueue.main.async {
+            self.imdbImageView.image = self.movie?.image
+        }
     }
 }

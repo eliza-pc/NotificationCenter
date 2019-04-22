@@ -2,8 +2,8 @@
 //  MovieStatisticsViewController.swift
 //  Notification Example
 //
-//  Created by Vilar da Camara Neto on 13/11/18.
-//  Copyright © 2018 Vilar da Camara Neto. All rights reserved.
+//  Created by Eliza Carvalho on 13/11/18.
+//  Copyright © 2018 Eliza Carvalho. All rights reserved.
 //
 
 import UIKit
@@ -15,6 +15,7 @@ class MovieStatisticsViewController: UIViewController, UITableViewDataSource, UI
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+         NotificationCenter.default.addObserver(self, selector: #selector(MovieStatisticsViewController.moviesChangedNotificationReceived(_:)), name: Movie.moviesChangedNotification, object: nil)
     }
 
     // MARK: - UITableViewDataSource
@@ -32,5 +33,10 @@ class MovieStatisticsViewController: UIViewController, UITableViewDataSource, UI
         cell.detailTextLabel?.text = "\(genreCount)"
 
         return cell
+    }
+    @objc private func moviesChangedNotificationReceived(_ notification: Notification){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

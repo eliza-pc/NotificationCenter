@@ -2,8 +2,8 @@
 //  MovieEditViewController.swift
 //  Notification Example
 //
-//  Created by Vilar da Camara Neto on 13/11/18.
-//  Copyright © 2018 Vilar da Camara Neto. All rights reserved.
+//  Created by Eliza Carvalho on 13/11/18.
+//  Copyright © 2018 Eliza Carvalho. All rights reserved.
 //
 
 import UIKit

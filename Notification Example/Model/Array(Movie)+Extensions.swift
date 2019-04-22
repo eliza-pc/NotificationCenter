@@ -2,8 +2,8 @@
 //  Array(Movie)+Extensions.swift
 //  Notification Example
 //
-//  Created by Vilar da Camara Neto on 13/11/18.
-//  Copyright © 2018 Vilar da Camara Neto. All rights reserved.
+//  Created by Eliza Carvalho on 13/11/18.
+//  Copyright © 2018 Eliza Carvalho. All rights reserved.
 //
 
 import Foundation
@@ -38,6 +38,8 @@ extension Array where Element == Movie {
     mutating func add(_ movie: Movie) {
         let index = insertionIndex(of: movie)
         self.insert(movie, at: index)
+        
+        NotificationCenter.default.post(name: Movie.moviesChangedNotification, object: nil)
     }
 
     mutating func remove(_ movie: Movie) {
@@ -45,6 +47,8 @@ extension Array where Element == Movie {
             return
         }
         self.remove(at: index)
+        
+        NotificationCenter.default.post(name: Movie.moviesChangedNotification, object: nil)
     }
 
     mutating func update(_ movie: Movie) {

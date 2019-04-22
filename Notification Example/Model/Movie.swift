@@ -2,8 +2,8 @@
 //  Movie.swift
 //  Notification Example
 //
-//  Created by Vilar da Camara Neto on 13/11/18.
-//  Copyright © 2018 Vilar da Camara Neto. All rights reserved.
+//  Created by Eliza Carvalho on 13/11/18.
+//  Copyright © 2018 Eliza Carvalho. All rights reserved.
 //
 
 import Foundation
@@ -12,6 +12,10 @@ import UIKit
 
 
 class Movie {
+    static let moviesChangedNotification = Notification.Name(rawValue: "com.vilarneto.Notification-Example.moviesChanged")
+    
+    static let imageDownloadedNotificationName = Notification.Name(rawValue: "com.vilarneto.Notification-Example.ImageDownloaded")
+    
     enum Genre: Int {
         case action = 0
         case adventure = 1
@@ -100,6 +104,7 @@ class Movie {
                 return
             }
             self.cachedImage = UIImage(data: data, scale: UIScreen.main.scale)
+            NotificationCenter.default.post(name: Movie.imageDownloadedNotificationName, object: self)
         }
 
         task.resume()
